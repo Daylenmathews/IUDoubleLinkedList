@@ -5,10 +5,11 @@
  * @author Java Foundations, mvail
  * @version 4.0
  */
-public class Node<E> {
+public class Node<T> {
 
-    private Node<E> next;
-    private E element;
+    private Node<T> next;
+    private T element;
+    private Object previous;
 
     /**
      * Creates an empty node.
@@ -16,6 +17,7 @@ public class Node<E> {
     public Node() {
         next = null;
         element = null;
+
     }
 
     /**
@@ -23,9 +25,10 @@ public class Node<E> {
      *
      * @param elem the element to be stored within the new node
      */
-    public Node(E elem) {
-        next = null;
-        element = elem;
+    public Node(T element) {
+        this.element = element;
+        this.next = null;
+        this.previous = null;
     }
 
     /**
@@ -33,7 +36,7 @@ public class Node<E> {
      *
      * @return the node that follows the current one
      */
-    public Node<E> getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
@@ -42,7 +45,7 @@ public class Node<E> {
      *
      * @param node the node to be set to follow the current one
      */
-    public void setNext(Node<E> node) {
+    public void setNext(Node<T> node) {
         next = node;
     }
 
@@ -51,7 +54,7 @@ public class Node<E> {
      *
      * @return the element stored in this node
      */
-    public E getElement() {
+    public T getElement() {
         return element;
     }
 
@@ -60,7 +63,7 @@ public class Node<E> {
      *
      * @param elem the element to be stored in this node
      */
-    public void setElement(E elem) {
+    public void setElement(T elem) {
         element = elem;
     }
 
@@ -73,11 +76,11 @@ public class Node<E> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    void setNextNode(Object iterNextNode) {
+    Object getNextNode() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    Object getNextNode() {
+    Object getPreviousNode() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
