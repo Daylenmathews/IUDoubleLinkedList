@@ -46,6 +46,14 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         size++;
         versionNumber++;
     }
+    
+    private void setPreviousNode(Node<T> node, Node<T> newNode) {
+        node.setPreviousNode(newNode);  
+    }
+
+    private Node<T> getPreviousNode(Node<T> node) {
+        return (Node<T>) node.getPreviousNode();  
+    }
 
     @Override
     public void addToRear(T element) {
@@ -72,6 +80,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         addToRear(element);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void addAfter(T element, T target) {
         Node<T> targetNode = head;
@@ -91,7 +100,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         targetNode.setNextNode(newNode);
 
         if (newNode.getNextNode() != null) {
-            newNode.getNextNode().setPreviousNode(newNode);
+            ((Node<T>) newNode.getNextNode()).setPreviousNode(newNode);
         } else {
             tail = newNode;
         }
@@ -140,6 +149,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
             tail = null;
         } else {
             head = (Node<T>) head.getNextNode();
+            head.setPreviousNode(null);
         }
 
         size--;
@@ -161,6 +171,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
             tail = null;
         } else {
             tail = (Node<T>) tail.getPreviousNode();
+            tail.setNextNode(null);
 
             // Update the new null position
             tail.setNextNode(null);
@@ -180,12 +191,12 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         }
 
         if (targetNode == null) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Element not found.");
         }
         if (targetNode != head) {
             targetNode.getPreviousNode().setNextNode(targetNode.getNextNode());
         } else {
-            head = (Node<T>) targetNode.getNextNode();
+            head = (Node<T>) targetNode.getNextNode(); // Move head forward
         }
 
         if (targetNode != tail) {
@@ -200,10 +211,11 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         return targetNode.getElement();
     }
 
+
     @Override
     public T remove(int index) {
         if (index < 0 || index >= size()) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Index: " + index + " , Size: " + size);
         }
 
         // Always start at the beginning
@@ -213,15 +225,20 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
             targetNode = (Node<T>) targetNode.getNextNode();
         }
 
-        if (index == 0) {
-            head = (Node<T>) targetNode.getNextNode();
-        } else {
-            targetNode.getPreviousNode().setNextNode(targetNode.getNextNode());
+        Node<T> target;
+                if (targetNode == head) {
+                    head = (Node<T>) targetNode.getNextNode();
+                } else {
+                    targetNode.getPreviousNode().setNextNode(target.getNextNode());
         }
         if (targetNode == tail) {
             tail = (Node<T>) targetNode.getPreviousNode();
         } else {
-            targetNode.getNextNode().setPreviousNode(targetNode.getPreviousNode());
+            targetNode.getNextNode().setPreviousNode(target.getPreviousNode());
+        }
+
+        if (head == null){
+            tail = null;
         }
 
         size--;
@@ -379,6 +396,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
          *
          * @param startIndex takes in a given index value to start
          */
+        @SuppressWarnings("unchecked")
         public DLLIterator(int startIndex) {
             if (startIndex < 0 || startIndex > size()) {
                 throw new IndexOutOfBoundsException();

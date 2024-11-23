@@ -9,7 +9,7 @@ public class Node<T> {
 
     private Node<T> next;
     private T element;
-    private Object previous;
+    private Node<T> previous;
 
     /**
      * Creates an empty node.
@@ -82,5 +82,10 @@ public class Node<T> {
 
     Object getPreviousNode() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPreviousNode(Node<T> newNode) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPreviousNode'");
     }
 }
