@@ -391,15 +391,9 @@ public class ListTester {
 	private IndexedUnsortedList<Integer> newList() {
         IndexedUnsortedList<Integer> listToUse;
         switch (LIST_TO_USE) {
-//		case arrayList:
-//			listToUse = new IUArrayList<Integer>();
-//			break;
-//		case singleLinkedList:
-//			listToUse = new IUSingleLinkedList<Integer>();
-//			break;
-//		case doubleLinkedList:
-//			listToUse = new IUDoubleLinkedList<Integer>();
-//			break;
+		case doubleLinkedList:
+			listToUse = new IUDoubleLinkedList<Integer>();
+			break;
             default:
                 listToUse = null;
         }

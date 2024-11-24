@@ -17,19 +17,42 @@ public class Node<T> {
     public Node() {
         next = null;
         element = null;
+        previous = null;
 
     }
 
     /**
-     * Creates a node storing the specified element.
-     *
-     * @param elem the element to be stored within the new node
+     * Returns the node that trails this one
+     * 
+     * @return the node that trails this one
      */
-    public Node(T element) {
-        this.element = element;
-        this.next = null;
-        this.previous = null;
+    public Node<T> getPrevious(){
+        return previous;
     }
+
+    /**
+     * Sets the Node that trails this one
+     *
+     * 
+     * @param node the node to be set to trail the current one
+     */
+    public void setPrevious(Node<T> previous){
+        this.previous = previous;
+    }
+
+    /**
+     * creates a node storing the specified element
+     * 
+     * @param elem
+     * the element can be stored within new node
+     */
+    public Node(T elem) {
+        previous = null;
+        next = null; 
+        element = elem;
+    }
+
+
 
     /**
      * Returns the node that follows this one.
@@ -69,23 +92,6 @@ public class Node<T> {
 
     @Override
     public String toString() {
-        return "Element: " + element.toString() + " Has next: " + (next != null);
-    }
-
-    void setNextNode(Object iterNextNode) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    Object getNextNode() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    Object getPreviousNode() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setPreviousNode(Node<T> newNode) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPreviousNode'");
+        return "Element: " + element.toString() + " Has next: " + (next != null) + " Has previous" + (previous != null);
     }
 }
